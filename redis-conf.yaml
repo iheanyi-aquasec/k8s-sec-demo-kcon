@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-redis
+  namespace: apps
+  labels:
+    app: my-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-redis
+  template:
+    metadata:
+      labels:
+        app: my-redis
+    spec:
+      containers:
+      - name: my-redis
+        image: diegob/redis:root
+        securityContext:
+          privileged: true
+        env:
+          - name: CRED
+            value: "secret"
